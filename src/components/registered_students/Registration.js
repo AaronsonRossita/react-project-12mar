@@ -1,10 +1,22 @@
-import React from "react";
-import "./Registrations.css";
+import React,{useState} from "react";
+import RegisteredStudentFilter from "./RegisteredStudentFilter";
+import RegisteredStudentList from "./RegisteredStudentList";
+import "./Registration.css";
 
-function Registrations(props){
+function Registration(props){
+
+    const [filteredCourse, setFilteredCourse] = useState("fullstack");
+
+    const onChangeFilterHandler = (course) => {
+        setFilteredCourse(course);
+    }
+
     return(
-        <div></div>
+        <div className="registrations card">
+            <RegisteredStudentFilter filterHandler={onChangeFilterHandler}/>
+            <RegisteredStudentList registeredStudents={props.registeredStudents} course={props.course}/>
+        </div>
     )
 }
 
-export default Registrations;
+export default Registration;

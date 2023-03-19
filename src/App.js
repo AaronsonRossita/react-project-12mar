@@ -1,6 +1,7 @@
+import React,{useState} from 'react';
 import './App.css';
 import NewStudent from './components/new_student/NewStudent';
-import RegisteredStudentList from './components/registered_students/RegisteredStudentList';
+import Registration from './components/registered_students/Registration';
 
 const DUMMY_REGISTERED_STUDENTS = [
   {
@@ -59,16 +60,20 @@ const AVAILABLE_COURSES = {
 }
 
 function App(){
+
+  const [registeredStudents, setRegisteredStudents] = useState(DUMMY_REGISTERED_STUDENTS);
   
   const addNewStudentHandler = (student) =>{
-    //DUMMY_REGISTERED_STUDENTS.push(student);
-    console.log(JSON.stringify(student));
+    setRegisteredStudents( (prevStudents) => {
+      return [student, ...prevStudents];
+    } );
+    console.log(registeredStudents);
   }
 
   return (
     <div>
-      <NewStudent addStudent={addNewStudentHandler}/>
-      <RegisteredStudentList registeredStudents={DUMMY_REGISTERED_STUDENTS} course={AVAILABLE_COURSES["fullstack"]}/>
+      <NewStudent addStudent={addNewStudentHandler} courses={AVAILABLE_COURSES}/>
+      <Registration registeredStudents={registeredStudents} course={AVAILABLE_COURSES["fullstack"]}/>
     </div>
     
   );
